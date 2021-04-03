@@ -24,4 +24,8 @@ public class ServicoService {
 		return obj.get();
 	}
 	
+	public Servico insert(Servico obj) {
+		return repository.save(obj);
+	}
+	
 }
