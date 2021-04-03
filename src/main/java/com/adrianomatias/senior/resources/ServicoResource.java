@@ -5,15 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.adrianomatias.senior.entities.Servicos;
+import com.adrianomatias.senior.entities.Servico;
 
 @RestController
 @RequestMapping(value = "/servicos")
-public class ServicosResource {
+public class ServicoResource {
 	
 	@GetMapping
-	public ResponseEntity<Servicos> findAll() {
-		Servicos s = new Servicos(1L, "Tecnologia", 250.00);
+	public ResponseEntity<Servico> findAll() {
+		Servico s = new Servico(1L, "Tecnologia", 250.00);
 		return ResponseEntity.ok().body(s);
 	}
 }

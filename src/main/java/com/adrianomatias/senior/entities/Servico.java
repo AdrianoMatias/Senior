@@ -1,14 +1,17 @@
 package com.adrianomatias.senior.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Servicos implements Serializable {
+public class Servico implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -16,11 +19,14 @@ public class Servicos implements Serializable {
 	private Long id;
 	private String nomeServico;
 	private Double valorHoraServico;
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<Pedido> pedidos = new ArrayList<>();
 
-	public Servicos() {
+	public Servico() {
 	}
 
-	public Servicos(Long id, String nomeServico, Double valorHoraServico) {
+	public Servico(Long id, String nomeServico, Double valorHoraServico) {
 		super();
 		this.id = id;
 		this.nomeServico = nomeServico;
@@ -50,6 +56,10 @@ public class Servicos implements Serializable {
 	public void setValorHoraServico(Double valorHoraServico) {
 		this.valorHoraServico = valorHoraServico;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,7 +77,7 @@ public class Servicos implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Servicos other = (Servicos) obj;
+		Servico other = (Servico) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
