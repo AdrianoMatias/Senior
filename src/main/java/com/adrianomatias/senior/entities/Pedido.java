@@ -17,25 +17,29 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	private String servicoComercializado;
-	private String qtdHora;
+	private Integer qtdHora;
 	private String profissionalAlocado;
-	private String procentagemImposto;
+	private double porcentagemImposto;
+	private double lucro;
+	private double total;
 	
 	@ManyToOne
-	@JoinColumn(name = "pedido_id")
-	private Servico pedido;
+	@JoinColumn(name = "servico_id")
+	private Servico servico;
 	
 	public Pedido() {}
 
-	public Pedido(Long id, String servicoComercializado, String qtdHora, String profissionalAlocado,
-			      String procentagemImposto, Servico pedido) {
+	public Pedido(Long id, String servicoComercializado, Integer qtdHora, String profissionalAlocado,
+			Double porcentagemImposto, Double lucro, Double total, Servico servico) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.servicoComercializado = servicoComercializado;
 		this.qtdHora = qtdHora;
 		this.profissionalAlocado = profissionalAlocado;
-		this.procentagemImposto = procentagemImposto;
-		this.pedido = pedido;
+		this.porcentagemImposto = porcentagemImposto;
+		this.lucro = lucro;
+		this.total = total;
+		this.servico = servico;
 	}
 
 	public Long getId() {
@@ -54,11 +58,11 @@ public class Pedido implements Serializable {
 		this.servicoComercializado = servicoComercializado;
 	}
 
-	public String getQtdHora() {
+	public Integer getQtdHora() {
 		return qtdHora;
 	}
 
-	public void setQtdHora(String qtdHora) {
+	public void setQtdHora(Integer qtdHora) {
 		this.qtdHora = qtdHora;
 	}
 
@@ -70,20 +74,47 @@ public class Pedido implements Serializable {
 		this.profissionalAlocado = profissionalAlocado;
 	}
 
-	public String getProcentagemImposto() {
-		return procentagemImposto;
+	public Double getPorcentagemImposto() {
+		return porcentagemImposto;
+	}
+	
+	public void setPorcentagemImposto(Double porcentagemImposto) {
+		this.porcentagemImposto = porcentagemImposto;
+	}
+	
+	public Double getLucro() {
+		double receitaTotal;
+		double custo;
+		double percentualLucro = porcentagemImposto / 100;
+		receitaTotal = servico.getValorHoraServico() * qtdHora;
+		custo = receitaTotal - (percentualLucro * receitaTotal);
+		lucro = (custo/receitaTotal) * 100;
+		return lucro;
 	}
 
-	public void setProcentagemImposto(String procentagemImposto) {
-		this.procentagemImposto = procentagemImposto;
+	public void setLucro(Double lucro) {
+		this.lucro = lucro;
 	}
 
-	public Servico getPedido() {
-		return pedido;
+	
+	public Double getTotal() {
+		double total;
+		double pencentual = porcentagemImposto / 100;
+		total = servico.getValorHoraServico() * qtdHora;
+		return total + (pencentual * total);
+		
 	}
 
-	public void setPedido(Servico pedido) {
-		this.pedido = pedido;
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Servico getServico() {
+		return servico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
 	}
 
 	@Override
@@ -93,6 +124,8 @@ public class Pedido implements Serializable {
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		return result;
 	}
+	
+
 
 	@Override
 	public boolean equals(Object obj) {
