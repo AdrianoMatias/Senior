@@ -24,4 +24,11 @@ public class PedidoService {
 		return obj.get();
 	}
 	
+	public Pedido insert(Pedido obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }

@@ -1,6 +1,10 @@
 package com.adrianomatias.senior.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pedido implements Serializable {
@@ -27,18 +32,18 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "servico_id")
 	private Servico servico;
 	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<PedidoItem> items = new HashSet<>();
+	
 	public Pedido() {}
 
-	public Pedido(Long id, String servicoComercializado, Integer qtdHora, String profissionalAlocado,
-			Double porcentagemImposto, Double lucro, Double total, Servico servico) {
+	public Pedido(Long id, String servicoComercializado, Integer qtdHora, String profissionalAlocado, Double porcentagemImposto, Servico servico) {
 		super();
 		this.Id = id;
 		this.servicoComercializado = servicoComercializado;
 		this.qtdHora = qtdHora;
 		this.profissionalAlocado = profissionalAlocado;
 		this.porcentagemImposto = porcentagemImposto;
-		this.lucro = lucro;
-		this.total = total;
 		this.servico = servico;
 	}
 
@@ -82,7 +87,7 @@ public class Pedido implements Serializable {
 		this.porcentagemImposto = porcentagemImposto;
 	}
 	
-	public Double getLucro() {
+	/*public Double getLucro() {
 		double receitaTotal;
 		double custo;
 		double percentualLucro = porcentagemImposto / 100;
@@ -90,23 +95,10 @@ public class Pedido implements Serializable {
 		custo = receitaTotal - (percentualLucro * receitaTotal);
 		lucro = (custo/receitaTotal) * 100;
 		return lucro;
-	}
+	}*/
 
 	public void setLucro(Double lucro) {
 		this.lucro = lucro;
-	}
-
-	
-	public Double getTotal() {
-		double total;
-		double pencentual = porcentagemImposto / 100;
-		total = servico.getValorHoraServico() * qtdHora;
-		return total + (pencentual * total);
-		
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
 	}
 
 	public Servico getServico() {
@@ -115,6 +107,19 @@ public class Pedido implements Serializable {
 
 	public void setServico(Servico servico) {
 		this.servico = servico;
+	}
+
+	public Set<PedidoItem> getItems() {
+		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for(PedidoItem x : items) {
+			double pencentual = porcentagemImposto / 100;
+			sum += x.getSubTotal();
+		}
+		return sum;
 	}
 
 	@Override
