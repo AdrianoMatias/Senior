@@ -31,6 +31,7 @@ public class PedidoItem implements Serializable {
 		this.valorHoraServico = valorHoraServico;
 	}
 	
+	
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
@@ -40,6 +41,7 @@ public class PedidoItem implements Serializable {
 		id.setPedido(pedido);
 	}
 	
+	@JsonIgnore
 	public Servico getServico() {
 		return id.getServico();
 	}
@@ -56,9 +58,11 @@ public class PedidoItem implements Serializable {
 		this.qtdHora = qtdHora;
 	}
 
+	
 	public Double getValorHoraServico() {
 		return valorHoraServico;
 	}
+	
 
 	public void setValorHoraServico(Double valorHoraServico) {
 		this.valorHoraServico = valorHoraServico;

@@ -15,6 +15,7 @@ public class ServicoService {
 	@Autowired
 	private ServicoRepository repository;
 	
+	
 	public List<Servico> findAll(){
 		return repository.findAll();
 	}

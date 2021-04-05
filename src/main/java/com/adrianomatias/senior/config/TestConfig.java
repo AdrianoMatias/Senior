@@ -34,7 +34,7 @@ public class TestConfig implements CommandLineRunner {
 		Servico s2 = new Servico(null, "Manutenção de Computadores", 20.00);
 		
 		Pedido p1 = new Pedido(null, "Desenvolvimento de Sistemas", 2, "Adriano Matias", 20.0, s1);
-		Pedido p2 = new Pedido(null, "Troca de memória", 1, "Antonio Souza", 10.0, s2);
+		Pedido p2 = new Pedido(null, "Troca de memória", 2, "Antonio Souza", 10.0, s2);
 		Pedido p3 = new Pedido(null, "Desenvolvimento Front End", 6, "Bruno Ferreira", 15.0, s1);
 		
 		servicoRepository.saveAll(Arrays.asList(s1, s2));

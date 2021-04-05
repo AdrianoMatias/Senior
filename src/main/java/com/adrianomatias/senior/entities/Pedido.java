@@ -1,9 +1,7 @@
 package com.adrianomatias.senior.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Pedido implements Serializable {
@@ -52,7 +52,7 @@ public class Pedido implements Serializable {
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getServicoComercializado() {
@@ -87,7 +87,7 @@ public class Pedido implements Serializable {
 		this.porcentagemImposto = porcentagemImposto;
 	}
 	
-	/*public Double getLucro() {
+	public Double getLucro() {
 		double receitaTotal;
 		double custo;
 		double percentualLucro = porcentagemImposto / 100;
@@ -95,7 +95,7 @@ public class Pedido implements Serializable {
 		custo = receitaTotal - (percentualLucro * receitaTotal);
 		lucro = (custo/receitaTotal) * 100;
 		return lucro;
-	}*/
+	}
 
 	public void setLucro(Double lucro) {
 		this.lucro = lucro;
@@ -117,7 +117,8 @@ public class Pedido implements Serializable {
 		double sum = 0.0;
 		for(PedidoItem x : items) {
 			double pencentual = porcentagemImposto / 100;
-			sum += x.getSubTotal();
+			total = x.getSubTotal() * pencentual;
+			sum +=  x.getSubTotal() + total;
 		}
 		return sum;
 	}
