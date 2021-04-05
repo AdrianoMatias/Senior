@@ -13,7 +13,7 @@ public class MainController {
 	
 	@RequestMapping(value="/servicos")	
 	public String getServicos(){	
-	    return "pedidos";
+	    return "/pedidos";
 	}
 }
 */
