@@ -1,4 +1,4 @@
-package com.adrianomatias.senior.controller;
+/*package com.adrianomatias.senior.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,4 +10,10 @@ public class MainController {
 	public String gethome(){	
 	    return "index";
 	}
+	
+	@RequestMapping(value="/servicos")	
+	public String getServicos(){	
+	    return "pedidos";
+	}
 }
+*/
