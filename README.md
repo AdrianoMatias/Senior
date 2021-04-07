@@ -1,6 +1,18 @@
 <h1>Senior</h1>
 <h2>Sistema de Cadastro de Pedidos</h2>
 
+<h2>Para testes locais:</h2>
+
+<h3>Endpoint Serviços - POST ou GET:</h3> 
+http://localhost:8080/servicos
+http://localhost:8080/servicos/1
+
+
+<h3>Endpoint Pedidos - POST ou GET:</h3> 
+http://localhost:8080/pedidos
+http://localhost:8080/pedidos/1
+
+
 <h3>Aplicação está hospedada no HEROKU, abaixo segue os endpoints para testes via POSTMAN</h3>
 
 <h3>Endpoint Serviços - POST:</h3> 
