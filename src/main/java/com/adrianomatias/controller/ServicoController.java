@@ -26,12 +26,12 @@ public class ServicoController {
         return "servicos/servicos";
 	}
 	
-	@PostMapping("http://localhost:8080/servicos/cadastrar")
+	@PostMapping("/cadastrar")
     public String insert(Servico servico, RedirectAttributes redirectAttributes) {
         RestTemplate api = new RestTemplate();
         Servico servicoResultado = api.postForObject("http://localhost:8080/servicos", servico, Servico.class);
         redirectAttributes.addFlashAttribute("msg", String.format("Serviço \"%s\" cadastrada com sucesso.",
-                servicoResultado.getNomeServico()));
+                servicoResultado.getId()));
         return "redirect:/pedidos";
     }
 	
